@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.net.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.VBox?>
+
+<VBox fx:id="first" alignment="CENTER_RIGHT" layoutY="0.0" prefHeight="600.0" prefWidth="800.0" style="" styleClass="background" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2">
+  <children>
+    <Label fx:id="label1" contentDisplay="CENTER" labelFor="$first" style="header" text="Hello world FXML" textAlignment="CENTER">
+      <stylesheets>
+        <URL value="@DarkTheme.css" />
+      </stylesheets>
+    </Label>
+    <Button fx:id="mainButton" mnemonicParsing="false" onAction="#buttonClickedMainButton" text="OpenSocket" />
+    <Slider fx:id="slider" minorTickCount="5" prefWidth="472.0" showTickLabels="true" showTickMarks="true" snapToTicks="true" value="25.0">
+      <stylesheets>
+        <URL value="@DarkTheme.css" />
+      </stylesheets>
+    </Slider>
+    <TextArea fx:id="outputTextArea" prefWidth="675.0" promptText="hi" wrapText="true">
+      <stylesheets>
+        <URL value="@DarkTheme.css" />
+      </stylesheets>
+    </TextArea>
+    <Button id="button2" fx:id="button" mnemonicParsing="false" onAction="#handleButtonAction" styleClass="background" text="Button">
+      <stylesheets>
+        <URL value="@DarkTheme.css" />
+      </stylesheets>
+    </Button>
+    <Label styleClass="button, " text="I am a button">
+      <stylesheets>
+        <URL value="@DarkTheme.css" />
+      </stylesheets>
+    </Label>
+  </children>
+  <stylesheets>
+    <URL value="@DarkTheme.css" />
+  </stylesheets>
+</VBox>
