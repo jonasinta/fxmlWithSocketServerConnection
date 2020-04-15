@@ -7,7 +7,7 @@ public class SocketListenerTester {
 public static void main(String[] args) {
 	mm_socketListener bedoingListener = new mm_socketListener();
 	Integer mmGot = 0;
-	bedoingListener.start();
+	bedoingListener.run();
 	//mmGot = bedoingListener.getMm();
 
 

@@ -19,97 +19,93 @@ public class mm_socketListener extends Thread{
 	private static ByteBuffer bb;
 
 	 private DoubleProperty distance_mm = new SimpleDoubleProperty();
-	
+	 Logger logger = Logger.getLogger("in socket server" );
 	
 /* to send data from terminal set up a netcat to port 3333;
  * nc  localhost 3333
 (non-Javadoc)
 
  */
-	 @Override
+	
+	@Override
 	public void run()  {
 		 Thread.currentThread().setName("Jonas'sThreadName");
-		 Logger logger = Logger.getLogger("Thread" + Thread.currentThread().getName());
+		 logger.debug("thread started and its name is "+Thread.currentThread().getName());
+		 
 		 bb = ByteBuffer.allocate(84);
-		 logger.debug("in thread "+Thread.currentThread().getName()); 
+		 logger.debug("L34:in thread not in thread now mk2 V/n"); 
 		 
 		 try {
 			serverSocketChannel = ServerSocketChannel.open();
 		} catch (IOException e) {
-			logger.error("opening serverSocketChannel problem");
+			logger.error("L39 opening serverSocketChannel problem");
 			
 			e.printStackTrace();
 		}
 
 		try {
-			serverSocketChannel.socket().bind(new InetSocketAddress(3333));
+			serverSocketChannel.socket().bind(new InetSocketAddress("localhost", 3333));
 		} catch (IOException e) {
-			logger.error("serverSocketChannel bind error");
+			logger.error("L:47 serverSocketChannel bind error");
 			e.printStackTrace();
 		}
 
 	try {
 		socketChannel = serverSocketChannel.accept();
 	} catch (IOException e) {
-		logger.error("serverSocketChannel accept error ");
+		logger.error("L:54 serverSocketChannel accept error ");
 		e.printStackTrace();
 	}
 
 		if (socketChannel.isConnected()) {
-			mmSocket = socketChannel.socket();
+			//mmSocket = socketChannel.socket();
 			 
 			try {
-				logger.debug("print remote Address; "+socketChannel.getRemoteAddress());
+				logger.debug("L:62 print remote Address; "+socketChannel.getRemoteAddress());
 			} catch (IOException e) {
-				logger.error(" getting address of remote client has run into an error");
+				logger.error("L:64 getting address of remote client has run into an error");
 				e.printStackTrace();
 			}
 			
 		}//close if connected
 		try {
-			listening(mmSocket);
+			listening(socketChannel);
 		} catch (IOException e) {
-			logger.error(" transferring to listening function has resulted in an error");
+			logger.error("L:72 transferring to listening function has resulted in an error");
 			e.printStackTrace();
 		}
 		
 	}//close init
 		
-private  void listening(Socket mmSocket) throws IOException {
-	 Logger logger = Logger.getLogger("sockListener");
-	BasicConfigurator.configure();
-	logger.debug("Sample debug message");
-	double bytesRead;
-			while (mmSocket.isConnected()) {
+private  void listening(SocketChannel socketChannel2) throws IOException {
+	// Logger logger = Logger.getLogger("sockListener");
+	//BasicConfigurator.configure();
+	logger.debug("L:81in listening method");
+	while (socketChannel2.isConnected()) {
 				
+		if (socketChannel2.read(bb)>0) {
+			
 				
-				try {
+				//System.out.println("bytes read " + bytesRead );
+				bb.flip();
 
-					bytesRead = socketChannel.read(bb);
-					//System.out.println("bytes read " + bytesRead );
-					bb.flip();
-
-					int tempInt=0;
-					while (bb.hasRemaining()) {
-	tempInt =(int)bb.get();					
+				int tempInt=0;
+				while (bb.hasRemaining()) {
+tempInt =(int)bb.get();					
 if (tempInt!=10) {
-	distance_mm.set(tempInt); 
-	logger.debug(distance_mm.doubleValue() + "in socketlistener module ");
-	
-	
-}
-						
-					
-						
+distance_mm.set(tempInt); 
 
-					} // close while
+logger.debug(distance_mm.getValue().toString() + "L93:in socketlistener module ");
+
+}// close if socket 
+}
 					
-					bb.clear();
-				} catch (IOException e) {
-					logger.error("reading socket bytes has run into an error");
-					serverSocketChannel.close();
-					e.printStackTrace();
-				}//close catch
+				
+					
+
+				} // close while
+				
+				bb.clear();
 
 			}//close while
 
